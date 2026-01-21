@@ -56,3 +56,19 @@ TypeError: text must be a string
 Traceback (most recent call last):
 ...
 TypeError: text must be a string
+
+# Boolean is not a valid text type
+>>> text_indentation(True)
+Traceback (most recent call last):
+...
+TypeError: text must be a string
+
+# Wrong number of arguments (Python handles these)
+>>> text_indentation()  # doctest: +ELLIPSIS
+Traceback (most recent call last):
+...
+TypeError: ...
+>>> text_indentation("Hello", "World")  # doctest: +ELLIPSIS
+Traceback (most recent call last):
+...
+TypeError: ...
