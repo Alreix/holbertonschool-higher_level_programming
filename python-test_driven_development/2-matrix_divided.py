@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """Module for matrix_divided.
-Defines a function that divides all elements of a matrix
-(list of lists) of integers/floats by a number and returns
-a new matrix with results rounded to 2 decimal places.
+Defines the function matrix_divided(matrix, div), which divides
+all elements of a matrix (list of lists of integers/floats) by
+a number and returns a new matrix with the results rounded to
+2 decimal places.
 """
 
 
@@ -22,15 +23,22 @@ def matrix_divided(matrix, div):
     """
     msg_matrix = "matrix must be a matrix (list of lists) of integers/floats"
 
-    if (not isinstance(matrix, list) or matrix == [] or
-            not all(isinstance(row, list) for row in matrix) or
-            not all(isinstance(num, (int, float))
-                    for row in matrix for num in row)):
+    if not isinstance(matrix, list) or matrix == []:
         raise TypeError(msg_matrix)
 
-    row_len = len(matrix[0])
-    if not all(len(row) == row_len for row in matrix):
-        raise TypeError("Each row of the matrix must have the same size")
+    for row in matrix:
+        if not isinstance(row, list):
+            raise TypeError(msg_matrix)
+
+    for row in matrix:
+        for num in row:
+            if not isinstance(num, (int, float)):
+                raise TypeError(msg_matrix)
+
+    first_len = len(matrix[0])
+    for row in matrix:
+        if len(row) != first_len:
+            raise TypeError("Each row of the matrix must have the same size")
 
     if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
@@ -38,4 +46,13 @@ def matrix_divided(matrix, div):
     if div == 0:
         raise ZeroDivisionError("division by zero")
 
-    return [[round(num / div, 2) for num in row] for row in matrix]
+    new_matrix = []
+    for row in matrix:
+        new_row = []
+        for num in row:
+            result = num / div
+            result = round(result, 2)
+            new_row.append(result)
+        new_matrix.append(new_row)
+
+    return new_matrix
