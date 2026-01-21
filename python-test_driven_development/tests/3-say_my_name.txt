@@ -1,6 +1,6 @@
 >>> say_my_name = __import__('3-say_my_name').say_my_name
 
-# --- Normal usage ---
+# Normal usage
 >>> say_my_name("John", "Smith")
 My name is John Smith
 >>> say_my_name("Walter", "White")
@@ -10,7 +10,7 @@ My name is Walter White
 >>> say_my_name("Bob")
 My name is Bob 
 
-# --- Edge cases: empty strings & spaces ---
+# Edge cases: empty strings & spaces
 >>> say_my_name("", "Doe")
 My name is  Doe
 >>> say_my_name("Alice", "")
@@ -18,7 +18,7 @@ My name is Alice
 >>> say_my_name("  Anna  ", "  Lee ")
 My name is   Anna     Lee 
 
-# --- Type errors: first_name ---
+# Type errors: first_name
 >>> say_my_name(12, "Smith")
 Traceback (most recent call last):
 ...
@@ -32,7 +32,7 @@ Traceback (most recent call last):
 ...
 TypeError: first_name must be a string
 
-# --- Type errors: last_name ---
+# Type errors: last_name
 >>> say_my_name("John", 12)
 Traceback (most recent call last):
 ...
@@ -42,7 +42,7 @@ Traceback (most recent call last):
 ...
 TypeError: last_name must be a string
 
-# --- Wrong number of arguments (Python gère tout seul) ---
+# Wrong number of arguments
 >>> say_my_name()
 Traceback (most recent call last):
 ...
