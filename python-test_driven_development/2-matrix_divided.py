@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Module for matrix_divided.
+
 Defines the function matrix_divided(matrix, div), which divides
 all elements of a matrix (list of lists of integers/floats) by
 a number and returns a new matrix with the results rounded to
@@ -9,6 +10,7 @@ a number and returns a new matrix with the results rounded to
 
 def matrix_divided(matrix, div):
     """Divide all elements of a matrix by div.
+
     Args:
         matrix: list of lists of integers or floats.
         div: number (int or float) used as divisor.
@@ -27,12 +29,13 @@ def matrix_divided(matrix, div):
         raise TypeError(msg_matrix)
 
     for row in matrix:
-        if not isinstance(row, list):
+        if not isinstance(row, list) or row == []:
             raise TypeError(msg_matrix)
 
     for row in matrix:
         for num in row:
-            if not isinstance(num, (int, float)):
+
+            if isinstance(num, bool) or not isinstance(num, (int, float)):
                 raise TypeError(msg_matrix)
 
     first_len = len(matrix[0])
@@ -40,7 +43,7 @@ def matrix_divided(matrix, div):
         if len(row) != first_len:
             raise TypeError("Each row of the matrix must have the same size")
 
-    if not isinstance(div, (int, float)):
+    if isinstance(div, bool) or not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
 
     if div == 0:
