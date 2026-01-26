@@ -6,7 +6,11 @@ class Square:
     """Represents a square with a validated private size attribute."""
 
     def __init__(self, size=0):
-        """Initialize a new Square with an optional size."""
+        """Initialize a new Square with an optional size.
+            
+        Args:
+            size (int): The size of the square. Must be an integer >= 0.
+        """
         self.size = size
 
     @property
