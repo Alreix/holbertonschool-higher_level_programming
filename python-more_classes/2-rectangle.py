@@ -4,6 +4,7 @@
 
 class Rectangle:
     """Represents a rectangle with width and height."""
+
     def __init__(self, width=0, height=0):
         """Initialize a new Rectangle instance."""
         self.width = width
@@ -45,5 +46,4 @@ class Rectangle:
         """Return the perimeter of the rectangle."""
         if self.__width == 0 or self.__height == 0:
             return 0
-        else:
-            return 2 * (self.__width * self.__height)
+        return 2 * (self.__width + self.__height)
