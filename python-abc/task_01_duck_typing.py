@@ -50,10 +50,10 @@ class Rectangle(Shape):
 
     def perimeter(self):
         """Return the rectangle perimeter."""
-        return (self.width * self.height) * 2
+        return 2 * (self.width * self.height)
 
 
-def shape_info(object):
+def shape_info(obj):
     """Print area and perimeter for a shape-like object."""
-    print("Area:", object.area())
-    print("Perimeter:", object.perimeter())
+    print("Area:", obj.area())
+    print("Perimeter:", obj.perimeter())
