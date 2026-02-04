@@ -76,3 +76,14 @@ None
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] data must be an integer
+
+>>> class MyInt(int):
+...     pass
+...
+>>> bg.integer_validator("sub", MyInt(5))
+
+>>> try:
+...     bg.integer_validator("sub_zero", MyInt(0))
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] sub_zero must be greater than 0
