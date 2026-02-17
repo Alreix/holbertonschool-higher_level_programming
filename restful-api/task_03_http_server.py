@@ -73,7 +73,6 @@ def main():
     """Start the HTTP server on port 8000."""
     server_address = ("", PORT)
     httpd = http.server.HTTPServer(server_address, ApiHandler)
-    print(f"Serving on http://localhost:{PORT}")
     httpd.serve_forever()
 
 
