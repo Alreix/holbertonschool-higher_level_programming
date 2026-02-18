@@ -24,14 +24,14 @@ class ApiHandler(http.server.BaseHTTPRequestHandler):
         """Route requests and return text or JSON responses."""
         if self.path == "/":
             self.send_response(200)
-            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_header("Content-Type", "text/plain")
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
             return
 
         if self.path == "/status":
             self.send_response(200)
-            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.send_header("Content-Type", "text/plain")
             self.end_headers()
             self.wfile.write(b"OK")
             return
@@ -41,7 +41,7 @@ class ApiHandler(http.server.BaseHTTPRequestHandler):
             body = json.dumps(payload).encode("utf-8")
 
             self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(body)
             return
@@ -54,13 +54,13 @@ class ApiHandler(http.server.BaseHTTPRequestHandler):
             body = json.dumps(payload).encode("utf-8")
 
             self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(body)
             return
 
         self.send_response(404)
-        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Type", "text/plain")
         self.end_headers()
         self.wfile.write(b"Endpoint not found")
 
