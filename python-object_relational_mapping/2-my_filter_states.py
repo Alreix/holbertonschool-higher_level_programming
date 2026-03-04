@@ -11,7 +11,7 @@ import MySQLdb
 
 if __name__ == "__main__":
     user = sys.argv[1]
-    passeword = sys.argv[2]
+    password = sys.argv[2]
     db_name = sys.argv[3]
     state_name_searched = sys.argv[4]
 
@@ -19,7 +19,7 @@ if __name__ == "__main__":
         host="localhost",
         port=3306,
         user=user,
-        passwd=passeword,
+        passwd=password,
         db=db_name
     )
     cur = db.cursor()
