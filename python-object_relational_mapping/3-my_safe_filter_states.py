@@ -27,8 +27,8 @@ if __name__ == "__main__":
 
     query = (
         "SELECT * FROM states "
-        "WHERE name = %s "
-        "ORDER BY id ASC"
+        "WHERE BINARY name = %s "
+        "ORDER BY states.id ASC"
     )
     cur.execute(query, (state_name,))
 
@@ -37,4 +37,3 @@ if __name__ == "__main__":
 
     cur.close()
     db.close()
-    
