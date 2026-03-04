@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Display states where the name matches the user input.
+List states matching a provided name from a MySQL database.
 
 Usage:
     ./2-my_filter_states.py <user> <password> <database> <state_name>
@@ -9,11 +9,12 @@ Usage:
 import sys
 import MySQLdb
 
+
 if __name__ == "__main__":
     user = sys.argv[1]
     password = sys.argv[2]
     db_name = sys.argv[3]
-    state_name_searched = sys.argv[4]
+    state_name = sys.argv[4]
 
     db = MySQLdb.connect(
         host="localhost",
@@ -25,8 +26,8 @@ if __name__ == "__main__":
     cur = db.cursor()
 
     query = (
-        "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC"
-    ).format(state_name_searched)
+        "SELECT * FROM states WHERE name = '{}' ORDER BY states.id ASC;"
+    ).format(state_name)
 
     cur.execute(query)
 
