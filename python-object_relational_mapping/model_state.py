@@ -1,22 +1,18 @@
 #!/usr/bin/python3
-"""
-Define the State model mapped to the 'states' table.
-
-This module provides:
-- Base: the declarative base class
-- State: the ORM model for the states table
-"""
+"""Defines the State class and Base for SQLAlchemy ORM."""
 
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
 
 class State(Base):
-    """State model representing a row in the 'states' table."""
+    """Represents the states table in the database."""
 
     __tablename__ = "states"
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(128), nullable=False)
+
+    cities = relationship("City", backref="state", cascade="all, delete")
