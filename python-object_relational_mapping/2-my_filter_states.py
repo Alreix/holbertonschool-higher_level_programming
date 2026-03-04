@@ -21,14 +21,15 @@ if __name__ == "__main__":
         port=3306,
         user=user,
         passwd=password,
-        db=db_name
+        db=db_name,
+        charset="utf8"
     )
     cur = db.cursor()
 
     query = (
         "SELECT * FROM states "
         "WHERE name = '{}' "
-        "ORDER BY states.id ASC;"
+        "ORDER BY id ASC;"
     ).format(state_name)
 
     cur.execute(query)
@@ -38,3 +39,4 @@ if __name__ == "__main__":
 
     cur.close()
     db.close()
+    
