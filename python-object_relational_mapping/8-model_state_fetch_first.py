@@ -7,28 +7,23 @@ from sqlalchemy.orm import Session
 from model_state import Base, State
 
 
-import sys
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from model_state import Base, State  # noqa: F401
-
-
 if __name__ == "__main__":
+    user = sys.argv[1]
+    password = sys.argv[2]
+    db_name = sys.argv[3]
+
     engine = create_engine(
         "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-            sys.argv[1], sys.argv[2], sys.argv[3]
+            user, password, db_name
         ),
         pool_pre_ping=True
     )
 
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    with Session(engine) as session:
+        state = session.query(State).order_by(State.id).first()
 
-    first_state = session.query(State).order_by(State.id).first()
+        if state is None:
+            print("Nothing")
+        else:
+            print("{}: {}".format(state.id, state.name))
 
-    if first_state is None:
-        print("Nothing")
-    else:
-        print("{}: {}".format(first_state.id, first_state.name))
-
-    session.close()
