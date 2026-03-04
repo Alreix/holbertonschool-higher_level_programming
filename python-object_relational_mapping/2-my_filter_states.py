@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     query = (
         "SELECT * FROM states "
-        "WHERE name = '{}' "
+        "WHERE BINARY name = '{}' "
         "ORDER BY states.id ASC;"
     ).format(state_name)
 
