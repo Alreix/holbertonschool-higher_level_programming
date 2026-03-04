@@ -10,14 +10,14 @@ import MySQLdb
 
 if __name__ == "__main__":
     "Retrive command argument"
-    user = sys.argv[1]
+    username = sys.argv[1]
     passeword = sys.argv[2]
     db_name = sys.argv[3]
 
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=user,
+        user=username,
         passwd=passeword,
         db=db_name
     )
