@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-List all states starting with 'N' from a MySQL database.
+List states starting with 'N' from a MySQL database.
 
 Usage:
     ./1-filter_states.py <user> <password> <database>
@@ -8,6 +8,7 @@ Usage:
 
 import sys
 import MySQLdb
+
 
 if __name__ == "__main__":
     user = sys.argv[1]
@@ -21,11 +22,11 @@ if __name__ == "__main__":
         passwd=password,
         db=db_name
     )
-
     cur = db.cursor()
     cur.execute(
-        "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC;"
+        "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY states.id ASC;"
     )
+
     for row in cur.fetchall():
         print(row)
 
