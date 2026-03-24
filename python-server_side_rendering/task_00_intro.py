@@ -14,6 +14,10 @@ def generate_invitations(template, attendees):
     """
     placeholders = ["name", "event_title", "event_date", "event_location"]
 
+    if not isinstance(template, str):
+        print("Error: template must be a string.")
+        return
+
     if not isinstance(attendees, list):
         print("Error: attendees must be a list of dictionaries.")
         return
