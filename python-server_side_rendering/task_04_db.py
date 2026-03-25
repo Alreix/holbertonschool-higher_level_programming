@@ -1,91 +1,76 @@
 #!/usr/bin/python3
-"""Flask application displaying products from JSON, CSV, or SQLite."""
 
-import csv
-import json
-import sqlite3
 from flask import Flask, render_template, request
+import json
+import csv
+import sqlite3
 
 app = Flask(__name__)
 
-
 def read_json_file():
-    """Read product data from the JSON file."""
-    with open('products.json', 'r', encoding='utf-8') as file:
+    with open('products.json', 'r') as file:
         return json.load(file)
 
-
 def read_csv_file():
-    """Read product data from the CSV file."""
-    products = []
-    with open('products.csv', 'r', encoding='utf-8', newline='') as file:
-        data = csv.DictReader(file)
-        for row in data:
-            products.append(
-                {
-                    "id": int(row["id"]),
-                    "name": row["name"],
-                    "category": row["category"],
-                    "price": float(row["price"])
-                }
-            )
-    return products
+    with open('products.csv', 'r') as file:
+        return list(csv.DictReader(file))
 
+def read_sql_file():
+    conn = sqlite3.connect('products.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
 
-def read_sql_db():
-    """Read product data from the SQLite database."""
-    products = []
-    connexion = sqlite3.connect('products.db')
-    cursor = connexion.cursor()
-
-    cursor.execute("SELECT id, name, category, price FROM Products")
+    cursor.execute('SELECT * FROM products')
     rows = cursor.fetchall()
-    connexion.close()
 
-    for row in rows:
-        products.append(
-            {
-                "id": row[0],
-                "name": row[1],
-                "category": row[2],
-                "price": row[3]
-            }
-        )
-    return products
+    conn.close()
 
+    return [dict(row) for row in rows]
 
 @app.route('/products')
 def products():
-    """Render product data from JSON, CSV, or SQLite."""
-    source = request.args.get("source")
+    source = request.args.get('source')
+    product_id = request.args.get('id')
 
     try:
-        if source == "json":
-            product_data = read_json_file()
-        elif source == "csv":
-            product_data = read_csv_file()
-        elif source == "sql":
-            product_data = read_sql_db()
+        if source == 'json':
+            products_data = read_json_file()
+        elif source == 'csv':
+            products_data = read_csv_file()
+        elif source == 'sql':
+            products_data = read_sql_file()
         else:
             return render_template(
-                "product_display.html",
+                'product_display.html',
                 error="Wrong source",
                 products=[]
             )
 
-        return render_template(
-            "product_display.html",
-            error=None,
-            products=product_data
-        )
+        if product_id:
+            products_data = [
+                product for product in products_data
+                if str(product.get('id')) == str(product_id)
+            ]
 
+            if not products_data:
+                return render_template(
+                    'product_display.html',
+                    error="Product not found",
+                    products=[]
+                )
+
+        return render_template(
+            'product_display.html',
+            products=products_data,
+            error=None
+        )
+    
     except sqlite3.Error:
         return render_template(
-            "product_display.html",
+            'product_display.html',
             error="Database error",
             products=[]
         )
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
